@@ -25,7 +25,6 @@ function ViewProductPage() {
     getSingleProduct(params.id);
   }, [params.id]);
 
-  // Use the product state directly in the JSX, not the log statement
   return (
     <div>
       <h1>View Product Page</h1>

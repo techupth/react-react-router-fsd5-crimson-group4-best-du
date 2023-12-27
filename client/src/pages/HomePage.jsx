@@ -27,6 +27,18 @@ function HomePage() {
     }
   };
 
+  const deleteProduct = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:4001/products/${productId}`);
+      // Update the local state by filtering out the deleted product
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.id !== productId)
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -63,14 +75,19 @@ function HomePage() {
                   </button>
                   <button
                     className="edit-button"
-                    onClick={() => navigate(`/edit/${product.id}`)}
+                    onClick={() => navigate(`/EditProductPage/${product.id}`)}
                   >
                     Edit
                   </button>
                 </div>
               </div>
 
-              <button className="delete-button">x</button>
+              <button
+                className="delete-button"
+                onClick={() => deleteProduct(product.id)}
+              >
+                x
+              </button>
             </div>
           );
         })}
